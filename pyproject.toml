@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "llm-sim"
+version = "0.1.0"
+description = ""
+authors = ["Kai Sasaki <lewuathe@gmail.com>"]
+readme = "README.md"
+packages = [{include = "llm-sim"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+transformers = "^4.31.0"
+torch = "^2.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
