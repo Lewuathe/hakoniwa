@@ -4,16 +4,19 @@ version = "0.1.0"
 description = ""
 authors = ["Kai Sasaki <lewuathe@gmail.com>"]
 readme = "README.md"
-packages = [{include = "llm-sim"}]
+packages = [{include = "llm_sim"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 transformers = "^4.31.0"
 torch = "^2.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.25.1"
+pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
