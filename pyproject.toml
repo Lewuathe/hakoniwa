@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "llm-sim"
+name = "hakoniwa"
 version = "0.1.0"
 description = ""
 authors = ["Kai Sasaki <lewuathe@gmail.com>"]
 readme = "README.md"
-packages = [{include = "llm_sim"}]
+packages = [{include = "hakoniwa"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

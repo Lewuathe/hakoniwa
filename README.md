@@ -1,4 +1,4 @@
-# llm-sim
+# hakoniwa
 
 ## How to run test
 
