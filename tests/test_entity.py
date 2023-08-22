@@ -6,4 +6,4 @@ def test_entity_in_prompt():
 
 def test_entity_out_prompt():
     entity = Entity()
-    assert entity.out_prompt() == "Hi, I'm an entity"    
+    assert entity.out_response() == "Hi, I'm an entity"    

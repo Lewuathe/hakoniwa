@@ -3,8 +3,8 @@ class Entity:
         if entity_id is None:
             entity_id = id(self)
 
-    def in_prompt(self):
+    def in_prompt(self, in_text=None):
         return "Get input"
 
-    def out_prompt(self):
+    def out_response(self):
         return "Hi, I'm an entity"
