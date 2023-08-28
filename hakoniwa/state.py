@@ -4,4 +4,4 @@ from dataclasses import dataclass
 class State:
     id: int
     name: str
-    actions: dict
+    choices: list[dict]
