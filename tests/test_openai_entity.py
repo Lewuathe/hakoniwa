@@ -1,8 +1,8 @@
 import os
 
-
 from hakoniwa.entity import OpenAIEntity
 from hakoniwa.state import State
+
 
 def test_entity_in_prompt():
     state = State(id=0, name="initial", choices=[])
@@ -12,4 +12,3 @@ def test_entity_in_prompt():
     response = entity.in_prompt()
     assert "action" in response
     assert "output" in response
-
