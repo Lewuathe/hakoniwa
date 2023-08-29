@@ -26,6 +26,9 @@ jobs:
       - name: Poetry Install Dependencies
         run: |
           poetry install --no-interaction
+      - name: Check format
+        run: |
+          make lint
       - name: Test with pytest
         run: |
           poetry run pytest
