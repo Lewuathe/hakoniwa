@@ -5,8 +5,18 @@
 - To experiment how the LLM behaves in the specific enviroment.
 - To collect the behavior data resembling the human behavior in the real world.
 
-## How to run test
+## Dependencies
+
+Install [Poetry](https://python-poetry.org/) and run the following command to install dependencies.
 
 ```
-$ poetry run pytest
+$ poetry install
+```
+
+## Development
+
+We can run the unit test with pytest.
+
+```
+$ make test
 ```
