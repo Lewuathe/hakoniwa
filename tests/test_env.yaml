@@ -1,20 +1,20 @@
 states:
   state0:
-    name: State0
+    name: In the house
     choices:
-      - action: from0to1
+      - action: Go outside
         next: state1
-      - action: from0to2
-        next: state2
+      - action: Stay inside
+        next: state0
   state1:
-    name: State1
+    name: Outside
     choices:
-      - action: from1to2
+      - action: Go to the supermarket
         next: state2
-      - action: from1to0
+      - action: Go back home
         next: state0
   state2:
-    name: State2
+    name: In the supermarket
     choices:
-      - action: from2to0
+      - action: Go back home
         next: state0
