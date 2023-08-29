@@ -2,16 +2,15 @@ from hakoniwa.state import State
 
 
 class Entity:
-    def __init__(self, initial_state: State, entity_id=None) -> None:
+    def __init__(self, entity_id: str, initial_state: State) -> None:
         self.state = initial_state
         if entity_id is None:
-            entity_id = id(self)
+            self.entity_id = id(self)
+        else:
+            self.entity_id = entity_id
 
-    def in_prompt(self, in_text=None):
-        return "Get input"
-
-    def out_response(self):
-        return "Hi, I'm an entity"
+    def in_prompt(self, in_text=""):
+        return "FIXME"
     
     def to_state(self, state):
         self.state = state

@@ -8,13 +8,13 @@ from .context import Context
 from .state import State
 
 class Environment:
+    """
+    Environment is a domain defining the state machine each entity is wandering around.
+    """
     def __init__(self, states: dict[State]) -> None:
         self.context = Context()
         self.states = states
         self.entities = []
-
-    def next_id(self) -> str:
-        return str(uuid.uuid4())
     
     @classmethod
     def from_yaml(cls, filename: str):
@@ -34,13 +34,11 @@ class Environment:
             in_prompt = self._build_prompt(entity.state)
             out_response = entity.in_prompt(in_prompt)
             out_json = json.loads(out_response)
-            logger.info(f"out_json: {out_json}")
-
-            logger.info(f"entity.state: {entity.state}")
+            logger.info(f"Output from {entity.entity_id}: {out_json}")
 
             action = int(out_json['action'])
             choice = entity.state.choices[action]
-            entity.state = self.states[choice['next']]
+            entity.to_state(self.states[choice['next']])
 
     def _build_prompt(self, state: State):
         choices = ""

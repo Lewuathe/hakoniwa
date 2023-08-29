@@ -5,11 +5,11 @@ from .dynamic_entity import DynamicEntity
 
 class OpenAIEntity(DynamicEntity):
 
-    def __init__(self, apikey, initial_state):
+    def __init__(self, entity_id, apikey, initial_state):
         openai.api_key = apikey
-        super().__init__(initial_state=initial_state, name="OpenAIEntity")
+        super().__init__(entity_id=entity_id, initial_state=initial_state)
 
-    def in_prompt(self, in_text=None):
+    def in_prompt(self, in_text=""):
         chat_completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo", 
             messages=[
@@ -36,6 +36,3 @@ Please give us the ID of action you would take and the output text you would ret
 
         response = chat_completion.choices[0].message.content
         return response
-
-    def out_response(self):
-        pass
