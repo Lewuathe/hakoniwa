@@ -11,6 +11,6 @@ class Entity:
 
     def in_prompt(self, in_text=""):
         return "FIXME"
-    
+
     def to_state(self, state):
         self.state = state

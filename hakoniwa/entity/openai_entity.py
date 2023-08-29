@@ -1,17 +1,18 @@
 import json
+
 import openai
 
 from .dynamic_entity import DynamicEntity
 
-class OpenAIEntity(DynamicEntity):
 
+class OpenAIEntity(DynamicEntity):
     def __init__(self, entity_id, apikey, initial_state):
         openai.api_key = apikey
         super().__init__(entity_id=entity_id, initial_state=initial_state)
 
     def in_prompt(self, in_text=""):
         chat_completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", 
+            model="gpt-3.5-turbo",
             messages=[
                 {
                     "role": "system",
@@ -23,12 +24,10 @@ Please give us the ID of action you would take and the output text you would ret
   "action": <Action ID>,
   "output": <Output Text>
 }
-"""
+""",
                 },
-                {
-                    "role": "user", "content": in_text
-                }
-            ]
+                {"role": "user", "content": in_text},
+            ],
         )
 
         if len(chat_completion.choices) == 0:

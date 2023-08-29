@@ -12,10 +12,3 @@ def test_environment_in_prompt():
     
     # Choose stay inside
     assert entity.state in environment.states.values()
-
-
-
-
-
-
-

@@ -4,4 +4,13 @@ init:
 test:
 	poetry run pytest
 
-.PHONY: init test
+lint:
+	isort --check --diff hakoniwa
+	black --check hakoniwa
+
+format:
+	isort hakoniwa
+	black hakoniwa
+
+.PHONY: init test lint format
+

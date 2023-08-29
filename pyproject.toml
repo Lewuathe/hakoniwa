@@ -11,6 +11,8 @@ python = "^3.10"
 transformers = "^4.31.0"
 torch = "^2.0.1"
 openai = "^0.27.8"
+black = "^23.7.0"
+isort = "^5.12.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -22,3 +24,10 @@ pytest-cov = "^4.1.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 119
+
+[tool.isort]
+profile = "black"
+line_length = 119
