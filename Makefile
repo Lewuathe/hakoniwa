@@ -1,3 +1,5 @@
+run = poetry run
+
 init:
 	poetry install
 
@@ -5,12 +7,12 @@ test:
 	poetry run pytest
 
 lint:
-	isort --check --diff hakoniwa tests
-	black --check hakoniwa tests
+	$(run) isort --check --diff hakoniwa tests
+	$(run) black --check hakoniwa tests
 
 format:
-	isort hakoniwa tests
-	black hakoniwa tests
+	$(run) isort hakoniwa tests
+	$(run) black hakoniwa tests
 
 .PHONY: init test lint format
 
