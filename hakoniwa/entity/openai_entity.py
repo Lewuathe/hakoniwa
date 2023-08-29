@@ -1,5 +1,3 @@
-import json
-
 import openai
 
 from .dynamic_entity import DynamicEntity
