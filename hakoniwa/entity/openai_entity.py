@@ -1,4 +1,8 @@
 import openai
+from logging import getLogger
+
+logger = getLogger(__name__)
+
 
 from .dynamic_entity import DynamicEntity
 
@@ -32,4 +36,5 @@ Please give us the ID of action you would take and the output text you would ret
             return "{}"
 
         response = chat_completion.choices[0].message.content
+        logger.info("{},{}".format(self.entity_id, response))
         return response

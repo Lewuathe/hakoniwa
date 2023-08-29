@@ -18,3 +18,8 @@ states:
     choices:
       - action: Go back home
         next: state0
+
+entities:
+  - name: OpenAI
+    type: openai
+    initial_state: state0

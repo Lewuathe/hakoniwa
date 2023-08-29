@@ -38,13 +38,13 @@ class Environment:
             in_prompt = self._build_prompt(entity.state)
             out_response = entity.in_prompt(in_prompt)
             out_json = json.loads(out_response)
-            logger.info(f"Output from {entity.entity_id}: {out_json}")
 
             action = int(out_json["action"])
             choice = entity.state.choices[action]
             entity.to_state(self.states[choice["next"]])
 
     def _build_prompt(self, state: State):
+        logger.debug("build prompt")
         choices = ""
         for idx, choice in enumerate(state.choices):
             choices += f"  {idx}: {choice['action']}\n"

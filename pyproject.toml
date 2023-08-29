@@ -30,3 +30,6 @@ line-length = 119
 [tool.isort]
 profile = "black"
 line_length = 119
+
+[tool.poetry.scripts]
+hakoniwa = 'hakoniwa.cli:run'
