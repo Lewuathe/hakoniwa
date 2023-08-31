@@ -42,6 +42,13 @@ The state machine consists of the following two parts.
 - `states`: The list of states in the state machine. `choices` is the list of actions which the agent can take from the state.
 - `entities`: The list of entities which play around inside the state machine.
 
+The CLI script, `hakoniwa` is usable to run the simulation with the state machine definition.
+
+```
+$ poetry run hakoniwa -f env.yaml
+```
+
+Please make sure to set the `OPENAI_APIKEY` if you set the OpenAI entity in the environment. 
 
 ## Dependencies
 
