@@ -37,11 +37,17 @@ class Environment:
         for entity in self.entities:
             in_prompt = self._build_prompt(entity.state)
             out_response = entity.in_prompt(in_prompt)
-            out_json = json.loads(out_response)
+
+            try:
+                out_json = json.loads(out_response)
+            except json.JSONDecodeError:
+                logger.warn("Failed to parse response as JSON")
+                continue
 
             action = int(out_json["action"])
             choice = entity.state.choices[action]
             entity.to_state(self.states[choice["next"]])
+            logger.info("{},{}".format(entity.entity_id, choice))
 
     def _build_prompt(self, state: State):
         logger.debug("build prompt")
