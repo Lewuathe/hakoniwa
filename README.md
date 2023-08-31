@@ -35,7 +35,7 @@ states:
         next: state0
 
 entities:
-  - name: OpenAI
+  - name: A living thing
     type: openai
     initial_state: state0
 ```
@@ -51,6 +51,14 @@ $ poetry run hakoniwa -f env.yaml
 ```
 
 Please make sure to set the `OPENAI_APIKEY` if you set the OpenAI entity in the environment. 
+
+You will see what it does in the environment.
+
+```
+INFO:hakoniwa.environment:A living thing,{'action': 'Stay inside', 'next': 'state0'}
+INFO:hakoniwa.environment:A living thing,{'action': 'Go outside', 'next': 'state1'}
+INFO:hakoniwa.environment:A living thing,{'action': 'Go to the supermarket', 'next': 'state2'}
+```
 
 ## Dependencies
 

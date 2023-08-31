@@ -20,6 +20,6 @@ states:
         next: state0
 
 entities:
-  - name: OpenAI
+  - name: A living thing
     type: openai
     initial_state: state0
