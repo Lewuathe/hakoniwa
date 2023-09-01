@@ -1,0 +1,51 @@
+states:
+  portal:
+    name: Go to the portal
+    choices:
+      - action: Visit EC site
+        next: ec
+      - action: Stay portal
+        next: portal
+  ec:
+    name: EC
+    choices:
+      - action: Look for a product
+        next: ec
+      - action: checkout product 100
+        next: cart100
+      - action: checkout product 200
+        next: cart200
+  cart100:
+    name: Put $100 product  in the cart
+    choices:
+      - action: Look for a product
+        next: ec
+      - action: Cancel all products in the cart
+        next: cancel_all
+      - action: Buy all products in the cart
+        next: buy_all
+  cart200:
+    name: Put $200 product in the cart
+    choices:
+      - action: Look for a product
+        next: ec
+      - action: Cancel all products in the cart
+        next: cancel_all
+      - action: Buy all products in the cart
+        next: buy_all        
+  cancel_all:
+    name: Cancel all the products in the cart
+    choices:
+      - action: Back to the EC top
+        next: ec
+  buy_all:
+    name: Buy all the products in the cart  
+    choices:
+      - action: Back to the EC top
+        next: ec
+
+entities:
+  - name: persona1
+    type: openai
+    initial_state: portal
+    personality: You want to buy a $100 product.

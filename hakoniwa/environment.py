@@ -43,7 +43,7 @@ class Environment:
             try:
                 out_json = json.loads(out_response)
             except json.JSONDecodeError:
-                logger.warn("Failed to parse response as JSON")
+                self.logger.debug("Failed to parse response as JSON")
                 continue
 
             action = int(out_json["action"])
@@ -55,13 +55,12 @@ class Environment:
 
     def _build_prompt(self, state: State):
         self.logger.debug("build prompt")
-        choices = ""
+        choices = "\n"
         for idx, choice in enumerate(state.choices):
             choices += f"  {idx}: {choice['action']}\n"
         prompt = f"""
         State: {state.name}
-        Actions:
-        {choices}
+        Actions:{choices}
         """
 
         return prompt

@@ -23,6 +23,7 @@ def build_environment(args):
                         entity_id=entity["name"],
                         apikey=os.environ["OPENAI_APIKEY"],
                         initial_state=environment.states[entity["initial_state"]],
+                        personality=entity["personality"],
                     )
                 )
             else:
