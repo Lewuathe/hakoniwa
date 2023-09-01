@@ -4,12 +4,14 @@ from argparse import ArgumentParser
 
 import yaml
 
+from hakoniwa.context import Context
 from hakoniwa.entity import OpenAIEntity
 from hakoniwa.environment import Environment
 
 
 def build_environment(args):
-    environment = Environment.from_yaml(args.env_file)
+    context = Context(args.history_file)
+    environment = Environment.from_yaml(filename=args.env_file, context=context)
     with open(args.env_file, "r") as file:
         config = yaml.safe_load(file)
         for entity in config["entities"]:
@@ -38,6 +40,7 @@ def run():
     parser = ArgumentParser(description="Hakoniwa CLI")
     parser.add_argument("-f", dest="env_file", help="File defining the environment")
     parser.add_argument("--iteration", dest="max_iterations", type=int, default=10, help="Max iterations")
+    parser.add_argument("--history", dest="history_file", default="history.jsonl", help="History file")
 
     args = parser.parse_args()
 
