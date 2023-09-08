@@ -2,6 +2,8 @@ from logging import getLogger
 
 import openai
 
+from hakoniwa.entity.entity import Entity
+
 logger = getLogger(__name__)
 
 
@@ -30,6 +32,27 @@ Please give us the ID of action you would take and the output text you would ret
   "output": <Output Text>
 }
 """,
+                },
+                {"role": "user", "content": in_text},
+            ],
+        )
+
+        if len(chat_completion.choices) == 0:
+            return "{}"
+
+        response = chat_completion.choices[0].message.content
+        return response
+
+    def interact(self, other: Entity):
+        in_text = f"""{self.personality}".
+        You are in a state '{self.state.name}' with {other.entity_id}. Say something to #{other.entity_id}?
+        """
+        chat_completion = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Provide the response to the other entity.",
                 },
                 {"role": "user", "content": in_text},
             ],

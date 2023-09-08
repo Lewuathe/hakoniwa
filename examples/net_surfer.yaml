@@ -49,3 +49,7 @@ entities:
     type: openai
     initial_state: portal
     personality: You want to buy a $100 product.
+  - name: persona2
+    type: openai
+    initial_state: portal
+    personality: You want to buy a $200 product.

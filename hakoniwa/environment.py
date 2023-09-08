@@ -4,6 +4,8 @@ from logging import getLogger
 
 import yaml
 
+from hakoniwa.entity.entity import Entity
+
 from .context import Context
 from .state import State
 
@@ -37,39 +39,57 @@ class Environment:
 
     def next(self):
         for entity in self.entities:
-            in_prompt = self._build_prompt(entity.state)
+            in_prompt = self._build_prompt(entity)
             out_response = entity.in_prompt(in_prompt)
 
             try:
                 out_json = json.loads(out_response)
             except json.JSONDecodeError:
                 self.logger.debug("Failed to parse response as JSON")
-                continue
+                return
 
             action = int(out_json["action"])
             choice = entity.state.choices[action]
             entity.to_state(self.states[choice["next"]])
-            self._emit_log(entity.entity_id, choice)
+            self._emit_log(entity.entity_id, choice, in_prompt)
 
         self.iteration_count += 1
 
-    def _build_prompt(self, state: State):
-        self.logger.debug("build prompt")
+    def _build_prompt(self, entity: Entity):
+        state = entity.state
         choices = "\n"
-        for idx, choice in enumerate(state.choices):
-            choices += f"  {idx}: {choice['action']}\n"
+        action_id = 0
+        for _, choice in enumerate(state.choices):
+            choices += f"  {action_id}: {choice['action']}\n"
+            action_id += 1
+        interections = ""
+        for other in self.entities:
+            if other.entity_id != entity.entity_id and other.state == state:
+                self.logger.debug("Found other entity in the same state")
+                interaction = other.interact(entity)
+                interections += f"{other.entity_id} says '{interaction}'."
         prompt = f"""
-        State: {state.name}
+        Context: You are in a state '{state.name}'. {interections}
         Actions:{choices}
+        """
+
+        self.logger.debug(prompt)
+
+        return prompt
+
+    def _build_interact_prompt(self, entity: Entity, other: Entity):
+        prompt = f"""
+        Context: You are in a state {entity.state} with {other.entity_id}. Do you want to say something to #{other.entity_id}?
         """
 
         return prompt
 
-    def _emit_log(self, entity_id: str, choice: dict):
+    def _emit_log(self, entity_id: str, choice: dict, prompt: str):
         record = {
             "iteration": self.iteration_count,
             "entity_id": entity_id,
             "action": choice["action"],
             "state": choice["next"],
+            "prompt": prompt,
         }
         self.logger.info(json.dumps(record))

@@ -42,9 +42,13 @@ def run():
     parser.add_argument("-f", dest="env_file", help="File defining the environment")
     parser.add_argument("--iteration", dest="max_iterations", type=int, default=10, help="Max iterations")
     parser.add_argument("--history", dest="history_file", default="history.jsonl", help="History file")
+    parser.add_argument("--debug", dest="debug", action="store_true", help="Enable debug log")
 
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.INFO)
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
     environment = build_environment(args)
     run_iterations(environment, args.max_iterations)
