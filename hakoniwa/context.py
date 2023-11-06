@@ -6,3 +6,4 @@ from dataclasses import dataclass
 class Context:
     name: str = "default"
     history_file: str = "history.jsonl"
+    need_interaction: bool = True

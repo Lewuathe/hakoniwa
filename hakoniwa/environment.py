@@ -31,6 +31,7 @@ class Environment:
             states = {}
             for state_id, state in config["states"].items():
                 states[state_id] = State(state_id, state["name"], state["choices"])
+            context.need_interaction = config["context"]["need_interaction"]
             environment = cls(states, context)
             return environment
 
@@ -64,7 +65,7 @@ class Environment:
             action_id += 1
         interections = ""
         for other in self.entities:
-            if other.entity_id != entity.entity_id and other.state == state:
+            if other.entity_id != entity.entity_id and other.state == state and self.context.need_interaction:
                 self.logger.debug("Found other entity in the same state")
                 interaction = other.interact(entity)
                 interections += f"{other.entity_id} says '{interaction}'."
