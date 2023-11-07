@@ -49,7 +49,7 @@ class Environment:
                 action = int(out_json["action"])
                 choice = entity.state.choices[action]
                 entity.to_state(self.states[choice["next"]])
-                self._emit_log(entity.entity_id, choice, in_prompt)                
+                self._emit_log(entity.entity_id, choice, in_prompt)
             except json.JSONDecodeError:
                 self.logger.debug("Failed to parse response as JSON")
                 return

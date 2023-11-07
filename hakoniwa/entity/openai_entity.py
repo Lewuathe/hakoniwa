@@ -22,8 +22,7 @@ class OpenAIEntity(DynamicEntity):
             messages=[
                 {
                     "role": "system",
-                    "content": 
-                    """
+                    "content": """
 Select the desired action on the list of possible actions based on the your personality and state you are now on.
 Please give us the following JSON which has an action ID you took in "action" field, and arbitrary output text in "output" field.
 
