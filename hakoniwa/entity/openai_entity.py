@@ -18,14 +18,14 @@ class OpenAIEntity(DynamicEntity):
 
     def in_prompt(self, in_text=""):
         chat_completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo-1106",
             messages=[
                 {
                     "role": "system",
-                    "content": f"{self.personality}"
-                    + """
-We expect you to take action each time based on the list of possible action and state you are now. You are given some input from the environment at each iteration align with the current state and action you took.
-Please give us the ID of action you would take and the output text you would return to the environment according to the following JSON format which have an action ID you took in "action" field, and arbitrary output text in "output" field.
+                    "content": 
+                    """
+Select the desired action on the list of possible actions based on the your personality and state you are now on.
+Please give us the following JSON which has an action ID you took in "action" field, and arbitrary output text in "output" field.
 
 {
   "action": <Action ID>,
@@ -33,7 +33,7 @@ Please give us the ID of action you would take and the output text you would ret
 }
 """,
                 },
-                {"role": "user", "content": in_text},
+                {"role": "user", "content": f"Personality: {self.personality}, {in_text}"},
             ],
         )
 

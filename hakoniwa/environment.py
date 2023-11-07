@@ -41,18 +41,21 @@ class Environment:
     def next(self):
         for entity in self.entities:
             in_prompt = self._build_prompt(entity)
+            self.logger.debug("Waiting for the response...")
             out_response = entity.in_prompt(in_prompt)
 
             try:
                 out_json = json.loads(out_response)
+                action = int(out_json["action"])
+                choice = entity.state.choices[action]
+                entity.to_state(self.states[choice["next"]])
+                self._emit_log(entity.entity_id, choice, in_prompt)                
             except json.JSONDecodeError:
                 self.logger.debug("Failed to parse response as JSON")
                 return
-
-            action = int(out_json["action"])
-            choice = entity.state.choices[action]
-            entity.to_state(self.states[choice["next"]])
-            self._emit_log(entity.entity_id, choice, in_prompt)
+            except RuntimeError as error:
+                self.logger.debug(error)
+                return
 
         self.iteration_count += 1
 
